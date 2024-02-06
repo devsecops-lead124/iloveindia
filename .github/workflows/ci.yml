@@ -1,0 +1,29 @@
+name: HTML CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t html-sample .
+
+      - name: Test Docker image
+        run: docker run --rm html-sample /bin/sh -c "echo 'HTML file exists' && test -f /usr/share/nginx/html/index.html"
+
+      - name: Push Docker image to GHCR
+        run: |
+          docker tag html-sample:latest ghcr.io/${{ github.repository_owner }}/html-sample:latest
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+          docker push ghcr.io/${{ github.repository_owner }}/html-sample:latest
