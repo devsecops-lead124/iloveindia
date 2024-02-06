@@ -25,5 +25,6 @@ jobs:
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.PAT }}" | docker login ghcr.io -u devsecops-lead124 --password-stdin
 
+
       - name: Push Docker image to GHCR
         run: docker push ghcr.io/${{ github.repository_owner }}/html-sample:latest
