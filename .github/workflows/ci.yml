@@ -30,7 +30,7 @@ jobs:
 
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.dockertoken }}" | docker login -u krishnadevsecops --password-stdin
+        run: echo "${{ secrets.DOCKERTOKEN }}" | docker login -u krishnadevsecops --password-stdin
 
       - name: Tag Docker image
-        run: docker tag your_dockerhub_username/html-sample krishnadevsecops/html-sample:latest
+        run: docker tag krishnadevsecops/html-sample krishnadevsecops/html-sample:latest
