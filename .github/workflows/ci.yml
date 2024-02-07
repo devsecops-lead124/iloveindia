@@ -27,3 +27,10 @@ jobs:
 
       - name: Push Docker image to GHCR
         run: docker push ghcr.io/${{ github.repository }}/html-sample:latest
+
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.dockertoken }}" | docker login -u krishnadevsecops --password-stdin
+
+      - name: Tag Docker image
+        run: docker tag your_dockerhub_username/html-sample krishnadevsecops/html-sample:latest
